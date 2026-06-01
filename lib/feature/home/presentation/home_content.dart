@@ -58,7 +58,7 @@ class HomeContentState extends State<HomeContent> {
             if (searchQuery.isNotEmpty || selectedCategory != 'All') ...[
               Text(
                 searchQuery.isNotEmpty 
-                    ? "Searching for '$searchQuery' in $selectedCategory" 
+                    ? "Searching for '$searchQuery' in $selectedCategory Recipes" 
                     : '$selectedCategory Recipes',
                 style: const TextStyle(
                   fontSize: 20,
