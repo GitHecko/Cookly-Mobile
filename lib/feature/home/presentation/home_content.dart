@@ -49,45 +49,33 @@ class HomeContentState extends State<HomeContent> {
               onCategorySelected: (category) {
                 setState(() {
                   selectedCategory = category;
-                  
-                 //CLEAR SEARCH WHEN CATEGORY SELECTED
-                  if (searchQuery.isNotEmpty) {
-                    searchController.clear();
-                    searchQuery = "";
-                  }
                 });
               },
             ),
 
             const SizedBox(height: 24),
 
-            // SEARCH LOGIC: Show results if searching, otherwise show categories
-            if (searchQuery.isNotEmpty) ...[
+            if (searchQuery.isNotEmpty || selectedCategory != 'All') ...[
               Text(
-                "Searching for '$searchQuery'",
+                searchQuery.isNotEmpty 
+                    ? "Searching for '$searchQuery' in $selectedCategory" 
+                    : '$selectedCategory Recipes',
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 16),
-              FilteredRecipeList(category: 'All', searchQuery: searchQuery),
+              
+              FilteredRecipeList(
+                category: selectedCategory, 
+                searchQuery: searchQuery,
+              ),
             ] 
-            else if (selectedCategory == 'All') ...[
+            else ...[
               const QuickEasySection(),
               const SizedBox(height: 24),
               const AllRecipesSection(),
-            ] 
-            else ...[
-              Text(
-                '$selectedCategory Recipes',
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 16),
-              FilteredRecipeList(category: selectedCategory, searchQuery: '',),
             ],
           ],
         ),
